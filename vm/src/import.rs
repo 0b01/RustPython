@@ -23,13 +23,10 @@ fn import_uncached_module(
 
     let notfound_error = vm.context().exceptions.module_not_found_error.clone();
     let import_error = vm.context().exceptions.import_error.clone();
-    console!(log, "file path blah");
 
     // Time to search for module in any place:
     let file_path = find_source(vm, current_path, module)
         .map_err(|e| vm.new_exception(notfound_error.clone(), e))?;
-    dbg!(&file_path);
-    console!(log, "file path: {:?} ", format!("{:?}", file_path));
     let source = util::read_file(file_path.as_path())
         .map_err(|e| vm.new_exception(import_error.clone(), e.to_string()))?;
     let code_obj = compile::compile(

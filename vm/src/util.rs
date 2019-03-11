@@ -20,14 +20,10 @@ pub fn read_file(path: &Path) -> Result<String> {
     let key = path.to_str().unwrap();
     let window = stdweb::web::window();
     let storage = window.local_storage();
-    console!(log, key);
     let ret = storage
         .get(key)
         .map(|i|base64::decode(&i).unwrap())
         .map(|i|std::str::from_utf8(&i).unwrap().to_owned())
         .ok_or(Error::new(ErrorKind::NotFound, "not found in local storage"));
-
-    console!(log, format!("{:?}", ret));
-
     ret
 }
