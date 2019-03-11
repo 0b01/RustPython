@@ -7,6 +7,11 @@
 
 #[macro_use]
 extern crate bitflags;
+#[cfg(target_arch = "wasm32")]
+#[macro_use]
+extern crate stdweb;
+#[cfg(target_arch = "wasm32")]
+extern crate base64;
 #[macro_use]
 extern crate lazy_static;
 extern crate lexical;
